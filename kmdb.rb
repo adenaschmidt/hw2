@@ -71,7 +71,10 @@
 # Use `Model.destroy_all` code.
 # TODO!
 
-Model.detroy_all
+Studio.destroy_all
+Movie.destroy_all
+Actor.destroy_all
+Role.destroy_all
 
 # Generate models and tables, according to the domain model.
 # TODO!
@@ -79,6 +82,61 @@ Model.detroy_all
 # Insert data into the database that reflects the sample data shown above.
 # Do not use hard-coded foreign key IDs.
 # TODO!
+
+new_studio = Studio.new 
+new_studio["name"] = "Warner Bros."
+
+new_studio.save
+
+studio = Studio.find_by({"name" => "Warner Bros."})
+
+movie = Movie.new
+movie["title"] = "Batman Begins"
+movie["year_released"] = "2005"
+movie["rated"] = "PG-13"
+movie["studio_id"] = studio["id"]
+
+movie.save
+
+movie = Movie.new
+movie["title"] = "The Dark Knight"
+movie["year_released"] = "2008"
+movie["rated"] = "PG-13"
+movie["studio_id"] = studio["id"]
+
+movie.save
+
+movie = Movie.new
+movie["title"] = "The Dark Knight Rises"
+movie["year_released"] = "2012"
+movie["rated"] = "PG-13"
+
+movie.save
+
+puts "There are #{Movie.all.count} movies"
+
+movies = Movie.all
+studios = Studio.all
+
+for movie in movies
+    title = movie["title"]
+    year_released = movie["year_released"]
+    rated = movie["rated"]
+    studio_id = Studio.find_by({"id" => movie["studio_id"]})
+    studio_name = studio_id["name"]
+    puts "#{title} #{year_released} #{rated} #{studio_id}"
+end
+
+
+
+roles = Role.all
+actors = Actor.all
+
+for role in roles
+    movie_id = Movie.find_by({"id" => movie["movie_id"]})
+    actor_id = Movie.find_by({"id" => actor["actor_id"]})
+    movie_title = movie_id["title"]
+end
 
 # Prints a header for the movies output
 puts "Movies"
