@@ -110,6 +110,7 @@ movie = Movie.new
 movie["title"] = "The Dark Knight Rises"
 movie["year_released"] = "2012"
 movie["rated"] = "PG-13"
+movie["studio_id"] = studio["id"]
 
 movie.save
 
@@ -124,10 +125,19 @@ for movie in movies
     rated = movie["rated"]
     studio_id = Studio.find_by({"id" => movie["studio_id"]})
     studio_name = studio_id["name"]
-    puts "#{title} #{year_released} #{rated} #{studio_id}"
+    puts "#{title} #{year_released} #{rated} #{studio_name}"
 end
 
 
+
+
+# Prints a header for the movies output
+puts "Movies"
+puts "======"
+puts ""
+
+# Query the movies data and loop through the results to display the movies output.
+# TODO!
 
 roles = Role.all
 actors = Actor.all
@@ -137,14 +147,6 @@ for role in roles
     actor_id = Movie.find_by({"id" => actor["actor_id"]})
     movie_title = movie_id["title"]
 end
-
-# Prints a header for the movies output
-puts "Movies"
-puts "======"
-puts ""
-
-# Query the movies data and loop through the results to display the movies output.
-# TODO!
 
 # Prints a header for the cast output
 puts ""
